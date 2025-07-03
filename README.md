@@ -2,6 +2,10 @@
 
 A modern React frontend application built with Vite and TypeScript for tracking cryptocurrency portfolios.
 
+## Live Demo
+
+🌐 **Production URL**: https://65.109.209.105
+
 ## Features
 
 - **User Authentication** - Secure login and registration system
@@ -46,12 +50,76 @@ A modern React frontend application built with Vite and TypeScript for tracking 
 
 ### Environment Configuration
 
-Create `.env.development` and `.env.production` files with the following content:
+#### Development Environment
+
+Create `.env.development` file with the following content:
 
 ```env
 VITE_API_URL=http://localhost:3001
 VITE_APP_NAME=Crypto Portfolio Tracker
 ```
+
+#### Production Environment
+
+For production deployment, set these environment variables on your server:
+
+```env
+# API Configuration
+VITE_API_URL=https://65.109.209.105/api
+VITE_APP_NAME=Crypto Portfolio Tracker
+
+# Build Configuration
+NODE_ENV=production
+```
+
+#### Server Environment Variables Setup
+
+When deploying to your server, you need to configure the following:
+
+1. **Frontend Environment Variables** (in your deployment environment):
+
+   ```bash
+   export VITE_API_URL=https://65.109.209.105/api
+   export VITE_APP_NAME="Crypto Portfolio Tracker"
+   export NODE_ENV=production
+   ```
+
+2. **Backend Environment Variables** (for your backend server):
+
+   ```bash
+   export PORT=3001
+   export DATABASE_URL=your_database_connection_string
+   export JWT_SECRET=your_jwt_secret_key
+   export BITAZZA_API_KEY=your_bitazza_api_key
+   export CORS_ORIGIN=https://65.109.209.105
+   ```
+
+3. **Nginx Configuration** (already configured in `nginx.conf`):
+
+   - Proxies `/api/*` requests to backend
+   - Serves frontend for all other routes
+   - Backend server should be accessible at `host.docker.internal:3001`
+
+4. **Docker Environment** (if using Docker):
+
+   ```bash
+   # Frontend container
+   docker run -d \
+     -e VITE_API_URL=https://65.109.209.105/api \
+     -e VITE_APP_NAME="Crypto Portfolio Tracker" \
+     -p 80:80 \
+     your-frontend-image
+
+   # Backend container
+   docker run -d \
+     -e PORT=3001 \
+     -e DATABASE_URL=your_database_url \
+     -e JWT_SECRET=your_jwt_secret \
+     -e BITAZZA_API_KEY=your_api_key \
+     -e CORS_ORIGIN=https://65.109.209.105 \
+     -p 3001:3001 \
+     your-backend-image
+   ```
 
 ## Available Commands
 
