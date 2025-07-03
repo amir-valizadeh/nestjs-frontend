@@ -27,7 +27,6 @@ const FALLBACK_CRYPTOCURRENCIES = [
 const AddPortfolioForm: React.FC<AddPortfolioFormProps> = ({
   onSubmit,
   onCancel,
-  availableSymbols = [],
   editingPortfolio,
 }) => {
   const [formData, setFormData] = useState({
